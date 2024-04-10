@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateCandidate));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.votingSign = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.postalCode = new System.Windows.Forms.TextBox();
             this.contact = new System.Windows.Forms.TextBox();
@@ -46,7 +47,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.name = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.votingSign = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -75,6 +75,14 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(897, 535);
             this.panel1.TabIndex = 0;
+            // 
+            // votingSign
+            // 
+            this.votingSign.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.votingSign.Location = new System.Drawing.Point(548, 268);
+            this.votingSign.Name = "votingSign";
+            this.votingSign.Size = new System.Drawing.Size(148, 28);
+            this.votingSign.TabIndex = 42;
             // 
             // label7
             // 
@@ -227,15 +235,6 @@
             this.label2.Size = new System.Drawing.Size(158, 22);
             this.label2.TabIndex = 18;
             this.label2.Text = "Candidate Name";
-            // 
-            // votingSign
-            // 
-            this.votingSign.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.votingSign.Location = new System.Drawing.Point(548, 268);
-            this.votingSign.Name = "votingSign";
-            this.votingSign.Size = new System.Drawing.Size(148, 28);
-            this.votingSign.TabIndex = 42;
-            this.votingSign.UseSystemPasswordChar = true;
             // 
             // CreateCandidate
             // 

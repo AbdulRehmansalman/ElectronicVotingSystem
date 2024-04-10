@@ -64,7 +64,7 @@ namespace ElectronicVotingSystem
                     if (rows.Length > 0)
                     {
                         int pId = Convert.ToInt32(rows[0]["pid"]);
-                        query = "INSERT INTO candidate (cname, votingsign, pid, userid, postalcode) VALUES ('" + Name + "','" + votingSign + "'," + pId + "," + maxUserId + ",'" + PostalCode + "')";
+                        query = "INSERT INTO candidate (cname, votingsign, pid, userid, postalcode) VALUES ('" + Name + "','" + VotingSign + "'," + pId + "," + maxUserId + ",'" + PostalCode + "')";
                         fn.setData(query, "Candidate Created SuccesFully");
                         Clear();
                     }

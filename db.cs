@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using System.Drawing;
 
 namespace ElectronicVotingSystem
 {
@@ -15,8 +16,8 @@ namespace ElectronicVotingSystem
     {
         protected SqlConnection getConnection()
         {
-            string connectionStr = @"Data Source=.;Initial Catalog=evoting; Integrated Security=True";
-            SqlConnection con = new SqlConnection(connectionStr);
+            ;
+            SqlConnection con = new SqlConnection(@"Data Source =.; Initial Catalog = electronicvoting; Integrated Security = True;");
             return con;
         }
 
