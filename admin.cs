@@ -47,5 +47,16 @@ namespace ElectronicVotingSystem
             
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            LogOut();
+        }
+        private void LogOut()
+        {
+            SignInform s1 = new SignInform();
+            s1.Show();
+            this.Hide();
+        }
     }
 }

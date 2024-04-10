@@ -32,5 +32,16 @@ namespace ElectronicVotingSystem
             ds = fn.getData(query);
             dataGridView1.DataSource = ds.Tables[0];
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            LogOut();
+        }
+        private void LogOut()
+        {
+            SignInform s1 = new SignInform();
+            s1.Show();
+            this.Hide();
+        }
     }
 }

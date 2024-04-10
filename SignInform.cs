@@ -91,7 +91,6 @@ namespace ElectronicVotingSystem
                     {
                         MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         // to Navigate through Various Roles
-                        MessageBox.Show(userId.ToString());
 
                         if (role.Equals("admin"))
                         {
