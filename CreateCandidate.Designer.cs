@@ -40,19 +40,20 @@
             this.label4 = new System.Windows.Forms.Label();
             this.partyname = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.votingsign = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.name = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.votingSign = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.votingSign);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.postalCode);
             this.panel1.Controls.Add(this.contact);
@@ -63,7 +64,6 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.partyname);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.votingsign);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label3);
@@ -168,19 +168,6 @@
             this.label1.TabIndex = 32;
             this.label1.Text = "Party_Name";
             // 
-            // votingsign
-            // 
-            this.votingsign.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.votingsign.FormattingEnabled = true;
-            this.votingsign.Items.AddRange(new object[] {
-            "Shair",
-            "Bat",
-            "Tawazo"});
-            this.votingsign.Location = new System.Drawing.Point(548, 269);
-            this.votingsign.Name = "votingsign";
-            this.votingsign.Size = new System.Drawing.Size(148, 30);
-            this.votingsign.TabIndex = 31;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -241,6 +228,15 @@
             this.label2.TabIndex = 18;
             this.label2.Text = "Candidate Name";
             // 
+            // votingSign
+            // 
+            this.votingSign.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.votingSign.Location = new System.Drawing.Point(548, 268);
+            this.votingSign.Name = "votingSign";
+            this.votingSign.Size = new System.Drawing.Size(148, 28);
+            this.votingSign.TabIndex = 42;
+            this.votingSign.UseSystemPasswordChar = true;
+            // 
             // CreateCandidate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -268,7 +264,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox partyname;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox votingsign;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox contact;
@@ -277,5 +272,6 @@
         private System.Windows.Forms.TextBox username;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox postalCode;
+        private System.Windows.Forms.TextBox votingSign;
     }
 }

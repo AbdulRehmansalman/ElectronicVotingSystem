@@ -125,8 +125,8 @@ namespace ElectronicVotingSystem
         }
         private static bool IsValidContact(string contact)
         {
-            //contains Only Numbers and 11 Digits max
-            return Regex.IsMatch(contact, @"^\d{11}$");
+            //contains Only Numbers and 10min and 15 Digits max
+            return Regex.IsMatch(contact, @"^\d{10,15}$");
         }
 
     }

@@ -27,12 +27,12 @@ namespace ElectronicVotingSystem
             string Name = name.Text;
             string Username = username.Text;
             string Password = password.Text;
-            string Contact = contact.Text;  
-            string votingSign = votingsign.SelectedItem as string;
+            string Contact = contact.Text;
+            string VotingSign = votingSign.Text;
             string PartyName =  partyname.SelectedItem as string;
             string PostalCode = postalCode.Text;
             string role = "candidate";
-            if (Validation.CreateCandidateValidate(Name, Username, Password, Contact, votingSign, PartyName, PostalCode))
+            if (Validation.CreateCandidateValidate(Name, Username, Password, Contact, VotingSign, PartyName, PostalCode))
             {
                 //No more than one Candidate Exist
                 string query = "SELECT COUNT(*) FROM candidate WHERE cname = '" + Name + "' AND postalcode = '" + PostalCode + "'";
@@ -111,8 +111,8 @@ namespace ElectronicVotingSystem
             username.Clear();
             password.Clear();
             contact.Clear();
-            votingsign.SelectedItem =false;
-             partyname.SelectedItem =false;
+            votingSign.Clear();
+            partyname.SelectedItem = null;
            postalCode.Clear();
         }
         private void createCandidate_Load(object sender, EventArgs e)

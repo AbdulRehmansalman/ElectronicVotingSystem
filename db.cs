@@ -15,7 +15,8 @@ namespace ElectronicVotingSystem
     {
         protected SqlConnection getConnection()
         {
-            SqlConnection con = new SqlConnection(@"Data Source=.;Initial Catalog=evoting; Integrated Security=True");
+            string connectionStr = @"Data Source=.;Initial Catalog=evoting; Integrated Security=True";
+            SqlConnection con = new SqlConnection(connectionStr);
             return con;
         }
 
