@@ -70,13 +70,12 @@
     <Compile Include="CreateCandidate.Designer.cs">
       <DependentUpon>CreateCandidate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dashboard.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Dashboard.cs" />
     <Compile Include="Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="db.cs" />
+    <Compile Include="Logout.cs" />
     <Compile Include="PartyCreation.cs">
       <SubType>Form</SubType>
     </Compile>

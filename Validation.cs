@@ -8,7 +8,22 @@ using System.Windows.Forms;
 
 namespace ElectronicVotingSystem
 {
-    public static class Validation
+    // proxy pattern 
+    public static class ValidationProxy
+    {
+        private static Validation validation = new Validation();
+
+        public static bool ValidateSignUpFields(string name, string username, string password, string contact, string postalCode)
+        {
+            return Validation.ValidateSignUpFields(name, username, password, contact, postalCode);
+        }
+
+        public static bool ValidateLoginFields(string username, string password)
+        {
+            return Validation.ValidateLoginFields(username, password);
+        }
+    }
+    public class Validation
     {
         public static bool ValidateSignUpFields(string name, string username, string password, string contact, string postalCode)
         {

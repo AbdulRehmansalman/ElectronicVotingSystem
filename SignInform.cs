@@ -32,10 +32,8 @@ namespace ElectronicVotingSystem
              int userId = 0;
              string role = "";
             //Validate Fields
-            if (Validation.ValidateLoginFields(Username, Password))
+            if (ValidationProxy.ValidateLoginFields(Username, Password))
             {
-                
-                // SQL Query 
                  string query = "SELECT id, role, password FROM Users WHERE username = @Username";
                 bool loginSuccess = false;
 

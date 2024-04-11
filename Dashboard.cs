@@ -10,6 +10,30 @@ using System.Windows.Forms;
 
 namespace ElectronicVotingSystem
 {
+    // using command pattern
+    public interface ICommand
+    {
+        void Execute();
+    }
+
+    public class LogoutCommand : ICommand
+    {
+        private readonly Form _form;
+
+        public LogoutCommand(Form form)
+        {
+            _form = form;
+        }
+
+        public void Execute()
+        {
+            _form.Invoke((MethodInvoker)delegate {
+                var signInForm = new SignInform();
+                signInForm.Show();
+                _form.Hide();
+            });
+        }
+    }
     public partial class Dashboard : Form
     {
         private int userId;
@@ -59,13 +83,8 @@ namespace ElectronicVotingSystem
 
         private void button4_Click(object sender, EventArgs e)
         {
-            LogOut();
-        }
-        private void LogOut()
-        {
-            SignInform s1 = new SignInform();
-            s1.Show();
-            this.Hide(); 
+            ICommand logoutCommand = new LogoutCommand(this);
+            logoutCommand.Execute();
         }
     }
 }

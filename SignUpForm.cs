@@ -29,7 +29,7 @@ namespace ElectronicVotingSystem
             string Contact = contact.Text;
             string PostalCode=postalCode.Text;
             string role = "user";
-            if (Validation.ValidateSignUpFields(Name, Username, Password, Contact, PostalCode))
+            if (ValidationProxy.ValidateSignUpFields(Name, Username, Password, Contact, PostalCode))
             {
                 //to check that Duplicate Data Not Inserted
                 string query = "select COUNT(*) from Users where name ='" + Name + "' AND postalcode = '" + PostalCode + "' ";
