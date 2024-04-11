@@ -17,7 +17,7 @@ namespace ElectronicVotingSystem
 {
     public partial class SignInform : Form
     {
-        db fn = new db();
+        db fn = db.GetInstance();
         DataSet dataSet = new DataSet();
 
         public SignInform()
@@ -32,10 +32,8 @@ namespace ElectronicVotingSystem
              int userId = 0;
              string role = "";
             //Validate Fields
-            if (Validation.ValidateLoginFields(Username, Password))
+            if (ValidationProxy.ValidateLoginFields(Username, Password))
             {
-                
-                // SQL Query 
                  string query = "SELECT id, role, password FROM Users WHERE username = @Username";
                 bool loginSuccess = false;
 
@@ -124,8 +122,12 @@ namespace ElectronicVotingSystem
                     MessageBox.Show("An error occurred" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            else
+            {
+                MessageBox.Show("Please fill in all fields correctly.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            
+
         }
             private void pictureBox1_Click(object sender, EventArgs e)
             {   

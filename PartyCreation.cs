@@ -15,7 +15,7 @@ namespace ElectronicVotingSystem
 {
     public partial class PartyCreation : Form
     {
-        db fn = new db();
+        db fn = db.GetInstance();
         public PartyCreation()
         {
             InitializeComponent();

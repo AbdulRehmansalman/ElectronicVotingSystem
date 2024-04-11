@@ -14,10 +14,29 @@ namespace ElectronicVotingSystem
 {
     public class db
     {
+        private static db instance;
+        private static readonly object lockObject = new object();
+
+        private db()
+        {
+            // Private constructor to prevent instantiation outside the class
+        }
+
+        public static db GetInstance()
+        {
+            lock (lockObject)
+            {
+                if (instance == null)
+                {
+                    instance = new db();
+                }
+            }
+            return instance;
+        }
+
         protected SqlConnection getConnection()
         {
-            ;
-            SqlConnection con = new SqlConnection(@"Data Source =.; Initial Catalog = electronicvoting; Integrated Security = True;");
+            SqlConnection con = new SqlConnection(@"Data Source=.;Initial Catalog=evoting;Integrated Security=True;");
             return con;
         }
 

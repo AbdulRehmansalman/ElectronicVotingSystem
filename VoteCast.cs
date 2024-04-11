@@ -15,7 +15,7 @@ namespace ElectronicVotingSystem
     {
         //userid taken from login 
         private int userId;
-        db fn = new db();
+        db fn = db.GetInstance();
         public VoteCast(int userId)
         {
             InitializeComponent();
