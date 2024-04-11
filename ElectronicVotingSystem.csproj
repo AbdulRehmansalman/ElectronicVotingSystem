@@ -75,7 +75,6 @@
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="db.cs" />
-    <Compile Include="Logout.cs" />
     <Compile Include="PartyCreation.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -122,8 +122,12 @@ namespace ElectronicVotingSystem
                     MessageBox.Show("An error occurred" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            else
+            {
+                MessageBox.Show("Please fill in all fields correctly.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            
+
         }
             private void pictureBox1_Click(object sender, EventArgs e)
             {   
