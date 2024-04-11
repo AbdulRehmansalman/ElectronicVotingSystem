@@ -17,7 +17,7 @@ namespace ElectronicVotingSystem
 {
     public partial class SignInform : Form
     {
-        db fn = new db();
+        db fn = db.GetInstance();
         DataSet dataSet = new DataSet();
 
         public SignInform()

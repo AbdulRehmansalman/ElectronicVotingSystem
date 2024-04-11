@@ -13,7 +13,7 @@ namespace ElectronicVotingSystem
     public partial class SeeCastedVotes : Form
     {
         private int userId;
-        db fn = new db();
+        db fn = db.GetInstance();
         public SeeCastedVotes(int userId)
         {
             InitializeComponent();

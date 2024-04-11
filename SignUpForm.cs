@@ -15,7 +15,7 @@ namespace ElectronicVotingSystem
 {
     public partial class SignUpForm : Form
     {
-        db fn = new db();
+        db fn = db.GetInstance();
         public SignUpForm()
         {
             InitializeComponent();

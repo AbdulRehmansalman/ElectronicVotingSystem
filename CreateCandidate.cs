@@ -14,7 +14,7 @@ namespace ElectronicVotingSystem
 {
     public partial class CreateCandidate : Form
     {
-        db fn =  new db();
+        db fn =  db.GetInstance();
         DataSet dataSet = new DataSet();
 
         public CreateCandidate()

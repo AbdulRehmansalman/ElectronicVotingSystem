@@ -12,7 +12,7 @@ namespace ElectronicVotingSystem
 {
     public partial class CandidateResults : Form
     {
-        db fn = new db();
+        db fn = db.GetInstance();
         private int UserId;    
         public CandidateResults(int userID)
         {
