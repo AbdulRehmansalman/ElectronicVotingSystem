@@ -70,7 +70,9 @@
     <Compile Include="CreateCandidate.Designer.cs">
       <DependentUpon>CreateCandidate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dashboard.cs" />
+    <Compile Include="Dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
@@ -112,6 +114,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleTransferableVoting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SingleTransferableVoting.Designer.cs">
+      <DependentUpon>SingleTransferableVoting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Validation.cs" />
     <Compile Include="VoteCast.cs">
       <SubType>Form</SubType>
@@ -177,6 +185,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SingleTransferableVoting.resx">
+      <DependentUpon>SingleTransferableVoting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VoteCast.resx">
       <DependentUpon>VoteCast.cs</DependentUpon>

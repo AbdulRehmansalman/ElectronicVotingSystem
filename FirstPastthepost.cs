@@ -12,6 +12,7 @@ namespace ElectronicVotingSystem
 {
     public partial class FirstPastthepost : Form
     {
+        db fn = db.GetInstance();
         public FirstPastthepost()
         {
             InitializeComponent();
@@ -24,7 +25,9 @@ namespace ElectronicVotingSystem
 
         private void FirstPastthepost_Load(object sender, EventArgs e)
         {
-
+            string query = "SELECT c.cname as Candidate_Name, c.postalcode as Postal_Code, COUNT(*) AS total_votes FROM Candidate c LEFT JOIN Voting v ON c.cid = v.cid GROUP BY cname, postalcode ORDER BY total_votes DESC";
+            DataSet ds = fn.getData(query);
+            dataGridView1.DataSource = ds.Tables[0];
         }
     }
 }
