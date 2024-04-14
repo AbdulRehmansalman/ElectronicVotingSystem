@@ -75,6 +75,12 @@
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="db.cs" />
+    <Compile Include="FirstPastthepost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FirstPastthepost.Designer.cs">
+      <DependentUpon>FirstPastthepost.cs</DependentUpon>
+    </Compile>
     <Compile Include="PartyCreation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FirstPastthepost.resx">
+      <DependentUpon>FirstPastthepost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PartyCreation.fr.resx">
       <DependentUpon>PartyCreation.cs</DependentUpon>

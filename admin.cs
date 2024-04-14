@@ -58,5 +58,26 @@ namespace ElectronicVotingSystem
             s1.Show();
             this.Hide();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            CandidateOverallResult candidateOverallResult   = new CandidateOverallResult(); 
+            candidateOverallResult.TopLevel = false;
+            // set the form properties
+            candidateOverallResult.FormBorderStyle = FormBorderStyle.None;
+            candidateOverallResult.Dock = DockStyle.Fill;
+            panel2.Controls.Clear();
+
+            // Add the form to the Controls collection of the panel
+            panel2.Controls.Add(candidateOverallResult);
+
+            // Show the form
+            candidateOverallResult.Show();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

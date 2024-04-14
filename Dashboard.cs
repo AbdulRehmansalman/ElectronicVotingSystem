@@ -72,13 +72,6 @@ namespace ElectronicVotingSystem
 
         private void button3_Click(object sender, EventArgs e)
         {
-            CandidateOverallResult candidateResult = new CandidateOverallResult();
-            candidateResult.TopLevel = false;
-            candidateResult.FormBorderStyle = FormBorderStyle.None;
-            candidateResult.Dock = DockStyle.Fill;
-            panel2.Controls.Clear();
-            panel2.Controls.Add(candidateResult);
-            candidateResult.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
