@@ -50,6 +50,10 @@ namespace ElectronicVotingSystem
                     query = "INSERT INTO users (name,username, password,contact, role) VALUES ('" + Name + "','" + Username + "','" + hashPassword + "','" + Contact + "','" + role + "')";
                     fn.setData(query, "Inserted SuccesFully");
 
+                    // Store Candidates id and postal code in Single Transferrable Tbale
+                    query = "INSERT INTO singletvote (cname,postalcode,seats) VALUES ('" + Name + "','" + PostalCode + "','" + 0 + "')";
+                    fn.setData(query, "Single Transferrable Record Inserted");
+
                     // to insert get id by Party Name into Candidate Tables
                     query = "select * from party where partname = '" + PartyName + "'";
                     dataSet = fn.getData(query);
