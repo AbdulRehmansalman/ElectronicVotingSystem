@@ -25,7 +25,7 @@ namespace ElectronicVotingSystem
 
         private void FirstPastthepost_Load(object sender, EventArgs e)
         {
-            string query = "SELECT c.cname as Candidate_Name, c.postalcode as Postal_Code, COUNT(*) AS total_votes FROM Candidate c LEFT JOIN Voting v ON c.cid = v.cid GROUP BY cname, postalcode ORDER BY total_votes DESC";
+            string query = "SELECT c.cname AS Candidate_Name, c.postalcode AS Postal_Code, COALESCE(COUNT(v.cid), 0) AS total_votes FROM Candidate c LEFT JOIN Voting v ON v.cid = c.cid GROUP BY c.cname, c.postalcode ORDER BY total_votes DESC;";
             DataSet ds = fn.getData(query);
             dataGridView1.DataSource = ds.Tables[0];
         }

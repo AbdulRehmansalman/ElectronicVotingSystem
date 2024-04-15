@@ -20,7 +20,7 @@ namespace ElectronicVotingSystem
 
         private void CandidateResult_Load(object sender, EventArgs e)
         {
-            string query = "SELECT c.cname as Candidate_Name, COUNT(*) AS total_votes FROM Candidate c LEFT JOIN Voting v ON v.cid = c.cid GROUP BY cname ORDER BY total_votes DESC";
+            string query = " SELECT c.cname AS Candidate_Name, COALESCE(COUNT(v.cid), 0) AS total_votes FROM Candidate c LEFT JOIN Voting v ON v.cid = c.cid GROUP BY c.cname ORDER BY total_votes DESC";
             DataSet ds = fn.getData(query);
             dataGridView1.DataSource = ds.Tables[0];
         }

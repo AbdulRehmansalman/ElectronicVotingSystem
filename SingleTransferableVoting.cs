@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace ElectronicVotingSystem
 {
@@ -42,7 +43,7 @@ namespace ElectronicVotingSystem
                 // Check the user's selection
                 if (result == DialogResult.Yes)
                 {
-                    if (seats.Text != " ")
+                    if (!string.IsNullOrWhiteSpace(Seats))
                     {
                         //first check that the same user votes to same candidate:
                         string query = "UPDATE singletvote SET seats = '" + Convert.ToInt32(Seats) + "' WHERE postalcode = '" + postalCode + "'";
