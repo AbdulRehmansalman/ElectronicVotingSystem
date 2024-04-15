@@ -128,10 +128,10 @@ namespace ElectronicVotingSystem
         }
         private static bool IsValidUsername(string username)
         {
-            //contain only letter(special) and number between 3 and 16. 
-            return Regex.IsMatch(username, @"^[a-zA-Z0-9_]{3,16}$");
-
+            // Contains only letters, numbers, underscores, and periods between 3 and 16 characters.
+            return Regex.IsMatch(username, @"^[a-zA-Z0-9_.]{3,16}$");
         }
+
 
         private static bool IsValidPassword(string password)
         {
