@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button6 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,13 +51,24 @@
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(190, 547);
+            this.panel1.Size = new System.Drawing.Size(190, 625);
             this.panel1.TabIndex = 0;
+            // 
+            // button6
+            // 
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Location = new System.Drawing.Point(23, 399);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(150, 98);
+            this.button6.TabIndex = 5;
+            this.button6.Text = "Single Transferrable Voting";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(23, 277);
+            this.button5.Location = new System.Drawing.Point(23, 298);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(150, 77);
             this.button5.TabIndex = 4;
@@ -68,7 +79,7 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(23, 185);
+            this.button4.Location = new System.Drawing.Point(23, 197);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(150, 77);
             this.button4.TabIndex = 3;
@@ -79,9 +90,9 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(23, 492);
+            this.button3.Location = new System.Drawing.Point(23, 528);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(150, 40);
+            this.button3.Size = new System.Drawing.Size(150, 66);
             this.button3.TabIndex = 2;
             this.button3.Text = "Log Out\r\n\r\n\r\n";
             this.button3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -102,7 +113,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(23, 88);
+            this.button1.Location = new System.Drawing.Point(23, 100);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(150, 82);
             this.button1.TabIndex = 0;
@@ -114,25 +125,14 @@
             // 
             this.panel2.Location = new System.Drawing.Point(208, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(903, 569);
+            this.panel2.Size = new System.Drawing.Size(903, 639);
             this.panel2.TabIndex = 1;
-            // 
-            // button6
-            // 
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(23, 372);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(150, 98);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "Single Transferrable Voting";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1111, 607);
+            this.ClientSize = new System.Drawing.Size(1111, 663);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "admin";

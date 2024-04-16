@@ -85,7 +85,7 @@
             // 
             this.panel2.Location = new System.Drawing.Point(243, 34);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(735, 600);
+            this.panel2.Size = new System.Drawing.Size(815, 600);
             this.panel2.TabIndex = 1;
             // 
             // Dashboard

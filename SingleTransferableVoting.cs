@@ -23,7 +23,7 @@ namespace ElectronicVotingSystem
 
         private void SingleTransferableVoting_Load(object sender, EventArgs e)
         {
-            string query = "SELECT MIN(cid) AS cid, postalcode FROM Candidate GROUP BY postalcode;\r\n";
+            string query = "SELECT MIN(cid) AS cid, postalcode FROM Candidate GROUP BY postalcode";
             DataSet ds = fn.getData(query);
             dataGridView1.DataSource = ds.Tables[0];
         }
@@ -59,6 +59,26 @@ namespace ElectronicVotingSystem
                     MessageBox.Show("Not Update Seats", "Seats not Placed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ElectingSeats electingSeats = new ElectingSeats();
+            //electingSeats.TopLevel = false;
+
+            // Show the form
+            electingSeats.Show();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void seats_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
