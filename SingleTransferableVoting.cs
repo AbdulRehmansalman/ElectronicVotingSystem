@@ -15,15 +15,17 @@ namespace ElectronicVotingSystem
     {
         db fn = db.GetInstance();
         DialogResult result;
+        string postalCode;
 
         public SingleTransferableVoting()
         {
             InitializeComponent();
+            postalcode.ReadOnly = true;
         }
 
         private void SingleTransferableVoting_Load(object sender, EventArgs e)
         {
-            string query = "SELECT MIN(cid) AS cid, postalcode FROM Candidate GROUP BY postalcode";
+            string query = "SELECT DISTINCT postalcode FROM Candidate";
             DataSet ds = fn.getData(query);
             dataGridView1.DataSource = ds.Tables[0];
         }
@@ -33,39 +35,15 @@ namespace ElectronicVotingSystem
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 //to get the postal code
-                string postalCode = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                postalCode = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
                 postalcode.Text = postalCode;
-                postalcode.ReadOnly = true;
-                 string Seats = seats.Text.ToString();
-                result = MessageBox.Show("Do you want to confirm the Number of seats", "Confirm Seats", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                
-
-                // Check the user's selection
-                if (result == DialogResult.Yes)
-                {
-                    if (!string.IsNullOrWhiteSpace(Seats))
-                    {
-                        //first check that the same user votes to same candidate:
-                        string query = "UPDATE singletvote SET seats = '" + Convert.ToInt32(Seats) + "' WHERE postalcode = '" + postalCode + "'";
-                        fn.setData(query, "Updated SuccessFully");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Plx Fill the Seats Field");
-                    }
-                }
-                else if (result == DialogResult.No)
-                {
-                    MessageBox.Show("Not Update Seats", "Seats not Placed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
+            }    
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
             ElectingSeats electingSeats = new ElectingSeats();
-            //electingSeats.TopLevel = false;
 
             // Show the form
             electingSeats.Show();
@@ -80,5 +58,35 @@ namespace ElectronicVotingSystem
         {
 
         }
+        private void SetSeats()
+        {
+            string Seats = seats.Text.ToString();
+            result = MessageBox.Show("Do you want to confirm the Number of seats", "Confirm Seats", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+
+            // Check the user's selection
+            if (result == DialogResult.Yes)
+            {
+                if (!string.IsNullOrWhiteSpace(Seats))
+                {
+                    //first check that the same user votes to same candidate:
+                    string query = "UPDATE singletvote SET seats = '" + Convert.ToInt32(Seats) + "' WHERE postalcode = '" + postalCode + "'";
+                    fn.setData(query, "Updated SuccessFully");
+                }
+                else
+                {
+                    MessageBox.Show("Plx Fill the Seats Field");
+                }
+            }
+            else if (result == DialogResult.No)
+            {
+                MessageBox.Show("Not Update Seats", "Seats not Placed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+    
+        private void enter_Click(object sender, EventArgs e)
+        {
+            SetSeats();
+        }   
     }
 }

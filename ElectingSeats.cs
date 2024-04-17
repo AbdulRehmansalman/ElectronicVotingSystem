@@ -151,7 +151,8 @@ namespace ElectronicVotingSystem
 
                                     // add the Reamining and the Next Preference 
                                     int result = nextPreferenceCount + checkRemain;
-                                   masla string updateQuery = "UPDATE SingletVote SET totalVotes ='" + result + "' WHERE id = '" + nextPreferenceCandidateID+"'";
+                                   //masla 
+                                        string updateQuery = "UPDATE SingletVote SET totalVotes ='" + result + "' WHERE id = '" + nextPreferenceCandidateID+"'";
                                     // Execute the update query In Singletvote
                                     fn.setData(updateQuery, "Total Votes With Distributed stored");
 

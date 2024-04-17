@@ -51,7 +51,7 @@
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(190, 625);
+            this.panel1.Size = new System.Drawing.Size(178, 625);
             this.panel1.TabIndex = 0;
             // 
             // button6
@@ -123,16 +123,16 @@
             // 
             // panel2
             // 
-            this.panel2.Location = new System.Drawing.Point(208, 12);
+            this.panel2.Location = new System.Drawing.Point(191, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(903, 639);
+            this.panel2.Size = new System.Drawing.Size(920, 639);
             this.panel2.TabIndex = 1;
             // 
             // admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1111, 663);
+            this.ClientSize = new System.Drawing.Size(1120, 663);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "admin";
