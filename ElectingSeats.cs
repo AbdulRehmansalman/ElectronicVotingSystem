@@ -240,72 +240,37 @@ namespace ElectronicVotingSystem
         }
         private void DistributeSurplusVotes(int candidateID, int surplusVotes)
         {
-            // Retrieve next preference candidates and their respective vote counts
-            string query = "SELECT c.cid, MAX(preferences) + 1 AS nextPreferenceOrder FROM voting v " +
-               "JOIN candidate c ON v.cid = c.cid " +
-               "WHERE preferences > 1 AND c.seat != 'eliminated' " + 
-               "GROUP BY c.cid ORDER BY nextPreferenceOrder ASC";
+            // Retrieve the list of voters who voted for the elected candidate
+            string query = "SELECT vid, preferences FROM voting WHERE cid = '" + candidateID + "' ORDER BY preferences";
+            DataSet voterData = fn.getData(query);
+            DataTable voterTable = voterData.Tables[0];
 
-            DataSet nextPreferenceDataSet = fn.getData(query);
-            DataTable nextPreferenceDataTable = nextPreferenceDataSet.Tables[0];
-
-            // Distribute surplus votes proportionally among next preference candidates
-            while (surplusVotes > 0 && nextPreferenceDataTable.Rows.Count > 0)
+            // Distribute surplus votes proportionally among the next preference candidates
+            foreach (DataRow row in voterTable.Rows)
             {
-                // List to store next preference candidates and their preference orders
-                List<int> candidateIDs = new List<int>();
-                List<int> nextPreferenceOrders = new List<int>();
+                int voterID = Convert.ToInt32(row["vid"]); // Assuming vid represents the voter ID
+                int nextPreference = Convert.ToInt32(row["preferences"]) + 1;
 
-                // Populate candidateIDs and nextPreferenceOrders lists
-                foreach (DataRow nextPrefRow in nextPreferenceDataTable.Rows)
+                // Find the candidate the voter ranked next
+                string nextCandidateQuery = "SELECT cid FROM voting WHERE vid = '" + voterID + "' AND preferences = '" + nextPreference + "'";
+                DataSet nextCandidateData = fn.getData(nextCandidateQuery);
+                DataTable nextCandidateTable = nextCandidateData.Tables[0];
+
+                if (nextCandidateTable.Rows.Count > 0)
                 {
-                    int nextPreferenceCandidateID = Convert.ToInt32(nextPrefRow["cid"]);
-                    int nextPreferenceOrder = GetNextPreferenceOrder(nextPreferenceCandidateID); // Use GetNextPreferenceOrder function
+                    int nextCandidateID = Convert.ToInt32(nextCandidateTable.Rows[0]["cid"]);
 
-                    candidateIDs.Add(nextPreferenceCandidateID);
-                    nextPreferenceOrders.Add(nextPreferenceOrder);
+                    // Update the preferences of the voter
+                    string updateQuery = "UPDATE voting SET preferences = preferences - 1 WHERE vid = '" + voterID + "'";
+                    fn.setData(updateQuery, "Update Voter Preferences");
+
+                    // Distribute surplus vote to the next preference candidate
+                    string distributeQuery = "UPDATE voting SET preferences = preferences + " + surplusVotes + " WHERE vid = '" + voterID + "' AND cid = '" + nextCandidateID + "'";
+                    fn.setData(distributeQuery, "Distribute Surplus Votes");
                 }
-
-                // Calculate the total next preference order among the next preference candidates
-                int totalNextPreferenceOrder = nextPreferenceOrders.Sum();
-
-                // Distribute surplus votes proportionally among next preference candidates
-                for (int i = 0; i < candidateIDs.Count; i++)
-                {
-                    // Calculate the number of surplus votes to distribute to the current candidate
-                    int votesToDistribute = (int)((double)surplusVotes * (nextPreferenceOrders[i] / (double)totalNextPreferenceOrder));
-
-                    // Ensure that each candidate receives at least one vote
-                    votesToDistribute = Math.Max(votesToDistribute, 1);
-
-                    // Update the preferences of the candidate based on their next preference order
-                    string updateVotesQuery = "UPDATE voting SET preferences = " + nextPreferenceOrders[i] + " WHERE cid = '" + candidateIDs[i] + "'";
-                    fn.setData(updateVotesQuery, "Distribute Votes");
-
-                    // Reduce surplus votes
-                    surplusVotes -= votesToDistribute;
-
-                    // Remove distributed votes from the candidate's total
-                    nextPreferenceOrders[i] -= votesToDistribute;
-
-                    // Remove candidate if they have received all their votes
-                    if (nextPreferenceOrders[i] == 0)
-                    {
-                        nextPreferenceOrders.RemoveAt(i);
-                        candidateIDs.RemoveAt(i);
-                        i--; // Adjust index due to removal
-                    }
-
-                    // Check if surplus votes are fully distributed
-                    if (surplusVotes == 0)
-                        break;
-                }
-
-                // Retrieve next preference candidates and their respective vote counts again for the next iteration
-                nextPreferenceDataSet = fn.getData(query);
-                nextPreferenceDataTable = nextPreferenceDataSet.Tables[0];
             }
         }
+
         private int GetNextPreferenceOrder(int candidateID)
         {
             // Retrieve the next preference order for the candidate

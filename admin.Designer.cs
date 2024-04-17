@@ -57,7 +57,7 @@
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(23, 399);
+            this.button6.Location = new System.Drawing.Point(14, 396);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(150, 98);
             this.button6.TabIndex = 5;
@@ -123,9 +123,9 @@
             // 
             // panel2
             // 
-            this.panel2.Location = new System.Drawing.Point(191, 12);
+            this.panel2.Location = new System.Drawing.Point(196, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(920, 639);
+            this.panel2.Size = new System.Drawing.Size(915, 639);
             this.panel2.TabIndex = 1;
             // 
             // admin
