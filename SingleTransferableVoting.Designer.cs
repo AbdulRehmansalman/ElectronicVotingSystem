@@ -44,7 +44,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.dataGridView1);
-            this.panel1.Location = new System.Drawing.Point(96, 127);
+            this.panel1.Location = new System.Drawing.Point(96, 111);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(625, 398);
             this.panel1.TabIndex = 0;
@@ -68,7 +68,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(182, 9);
+            this.label1.Location = new System.Drawing.Point(268, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(334, 29);
             this.label1.TabIndex = 1;
@@ -78,7 +78,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(92, 61);
+            this.label2.Location = new System.Drawing.Point(92, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(119, 22);
             this.label2.TabIndex = 2;
@@ -88,7 +88,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(381, 58);
+            this.label3.Location = new System.Drawing.Point(380, 45);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(175, 22);
             this.label3.TabIndex = 3;
@@ -97,7 +97,7 @@
             // postalcode
             // 
             this.postalcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.postalcode.Location = new System.Drawing.Point(229, 58);
+            this.postalcode.Location = new System.Drawing.Point(233, 42);
             this.postalcode.Name = "postalcode";
             this.postalcode.Size = new System.Drawing.Size(131, 28);
             this.postalcode.TabIndex = 4;
@@ -105,7 +105,7 @@
             // seats
             // 
             this.seats.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.seats.Location = new System.Drawing.Point(586, 58);
+            this.seats.Location = new System.Drawing.Point(586, 45);
             this.seats.Name = "seats";
             this.seats.Size = new System.Drawing.Size(135, 28);
             this.seats.TabIndex = 5;
@@ -114,9 +114,9 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(292, 528);
+            this.button1.Location = new System.Drawing.Point(273, 512);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(239, 50);
+            this.button1.Size = new System.Drawing.Size(239, 64);
             this.button1.TabIndex = 6;
             this.button1.Text = "Start Process For Electing Seats\r\n";
             this.button1.UseVisualStyleBackColor = true;
@@ -125,7 +125,7 @@
             // enter
             // 
             this.enter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.enter.Location = new System.Drawing.Point(339, 92);
+            this.enter.Location = new System.Drawing.Point(336, 76);
             this.enter.Name = "enter";
             this.enter.Size = new System.Drawing.Size(92, 29);
             this.enter.TabIndex = 7;
@@ -137,7 +137,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(892, 592);
+            this.ClientSize = new System.Drawing.Size(892, 588);
             this.Controls.Add(this.enter);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.seats);

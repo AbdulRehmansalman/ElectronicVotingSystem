@@ -14,307 +14,179 @@ namespace ElectronicVotingSystem
     public partial class ElectingSeats : Form
     {
         db fn = db.GetInstance();
-        private int finalQuota;
         DataSet dataSet;
         DataTable dataTable;
         string PostalCode;
-        int totalseats;
         int totalVotes = 0;
         string elected="elected";
-        int totalusers;
 
         public ElectingSeats()
         {
             InitializeComponent();
-            quota.Hide();
-            quota.ReadOnly = true;
+            
         }
        
         private void ElectingSeats_Load(object sender, EventArgs e)
+        {            
+        }
+        private void DistributeSurplusVotes(int candidateID, int surplusVotes)
         {
-            
+            string query = "SELECT v.userid, v.preferences FROM voting v " +
+                           "WHERE v.cid = '" + candidateID + "' AND v.preferences > 1 " +
+                           "ORDER BY v.preferences ASC";
+
+            DataSet voterPreferencesDataSet = fn.getData(query);
+            DataTable voterPreferencesTable = voterPreferencesDataSet.Tables[0];
+
+            int totalVoters = voterPreferencesTable.Rows.Count;
+
+            foreach (DataRow voterRow in voterPreferencesTable.Rows)
+            {
+                int voterID = Convert.ToInt32(voterRow["userid"]);
+                int nextPreference = Convert.ToInt32(voterRow["preferences"]) - 1; // Get the Next preference
+
+                string updateVotesQuery = "UPDATE voting SET preferences = " + nextPreference + " WHERE cid = '" + candidateID + "' AND userid = '" + voterID + "'";
+                fn.setData(updateVotesQuery, "Distribute Votes");
+
+                surplusVotes--;
+
+                if (surplusVotes == 0)
+                    break; // Exit loop When Additional Votes Finished
+            }
         }
 
-        private void quotaDisplay_Click(object sender, EventArgs e)
+        private void EliminateCandidateWithFewestVotes()
         {
-            //to find Quota: (TotalNumberoFUsers/No ofSeats +1)+1
-            PostalCode = postalCode.Text;
-            string query = "SELECT COUNT(Distinct userid) AS TotalUsers FROM voting WHERE postalcode ='" + PostalCode + "'";
-            // Execute query and put in dataset
-            //DataTable from DataSet
-            dataSet = fn.getData(query);
-            dataTable = dataSet.Tables[0];
-            // get total users from datatable 
-            totalusers = Convert.ToInt16(dataTable.Rows[0]["TotalUsers"]);
-            // For ToTal Seats:
-            if (!string.IsNullOrWhiteSpace(PostalCode))
-            {
-               
-                query = "select distinct(seats) as totalseats from singletvote where postalcode = '" + PostalCode + "'";
-                dataSet = fn.getData(query);
-                dataTable = dataSet.Tables[0];
-                totalseats = Convert.ToInt16(dataTable.Rows[0]["totalseats"]);
+            string query = "SELECT v.cid, COUNT(*) AS TotalVotes FROM voting v JOIN candidate c ON v.cid = c.cid WHERE c.seat != '" + elected + "' GROUP BY v.cid ORDER BY TotalVotes ASC";
+            DataSet candidateVotesDataSet = fn.getData(query);
+            DataTable candidateVotesTable = candidateVotesDataSet.Tables[0];
 
-                finalQuota = (totalusers / (totalseats + 1)) + 1;
-                quota.Show();
-                quota.Text = finalQuota.ToString();
+            if (candidateVotesTable.Rows.Count > 0)
+            {
+                DataRow candidateWithFewestVotes = candidateVotesTable.Rows[0];
+                int fewestVotes = Convert.ToInt32(candidateWithFewestVotes["TotalVotes"]);
+                int candidateID = Convert.ToInt32(candidateWithFewestVotes["cid"]);
+
+                string updateStatusQuery = "UPDATE candidate SET seat ='" + elected + "' WHERE cid = '" + candidateID + "'";
+                fn.setData(updateStatusQuery, "Mark Candidate as Elected " + candidateID);
+
+                string updatePreferencesQuery = "UPDATE voting SET preferences = preferences - 1 WHERE cid = '" + candidateID + "'";
+                fn.setData(updatePreferencesQuery, "Update Voter Preferences");
+
+                // Transfer votes of eliminated candidate to next preferences
+                DistributeSurplusVotes(candidateID, fewestVotes);
             }
             else
             {
-                MessageBox.Show("First Fill the Postal Code");
+                MessageBox.Show("No active candidates to eliminate.");
             }
-            
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            //int candidateID;
-            //string candidateName;
-            //string elected = "elected";
-
-            //if (!string.IsNullOrWhiteSpace(PostalCode))
-            //{
-            //    string query = "SELECT c.cid AS Candidate_ID, c.cname AS Candidate_Name,v.preferences FROM voting v JOIN candidate c ON v.cid = c.cid WHERE v.preferences = 1 AND v.postalcode = '"+PostalCode+"'";
-            //    DataSet ds = fn.getData(query);
-            //    dataGridView1.DataSource = ds.Tables[0];
-            //    query = "SELECT c.cid AS Candidate_ID, c.cname AS Candidate_Name, v.preferences, COUNT(*) AS Total_Votes FROM voting v JOIN candidate c ON v.cid = c.cid WHERE v.preferences = 1 AND v.postalcode = '"+PostalCode+"' GROUP BY c.cid, c.cname, v.preferences HAVING COUNT(*) >= '"+finalQuota+"'";
-            //    DataSet dataSet = fn.getData(query);
-            //    DataTable dataTable = dataSet.Tables[0];
-
-            //    // Check if DataTable contains rows
-            //    if (dataTable.Rows.Count > 0)
-            //    {
-            //        totalseats -= 1;
-            //        // Get the values from the first row of the DataTable
-            //        candidateID = Convert.ToInt32(dataTable.Rows[0]["Candidate_ID"]);
-            //        candidateName = dataTable.Rows[0]["Candidate_Name"].ToString();
-            //        totalVotes = Convert.ToInt32(dataTable.Rows[0]["Total_Votes"]);
-            //        DialogResult result = MessageBox.Show("The Candidate Elected is '"+candidateName+"'", "Elected Vote", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //        //if (result == DialogResult.OK)
-            //        //{
-                        
-            //        //    query = "UPDATE Candidate SET seat = '" + elected + "' WHERE cid = '" + candidateID + "'";
-            //        //    fn.setData(query, "set Seat to Candidate");
-            //        //}
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("No data found in the DataTable.");
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("First Fill the Postal Code");
-
-            //}
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int candidateID;
-            string candidateName;
-           
+            PostalCode = postalCode.Text;
             if (!string.IsNullOrWhiteSpace(PostalCode))
             {
-                string query = "SELECT c.cid AS Candidate_ID, c.cname AS Candidate_Name,v.preferences FROM voting v JOIN candidate c ON v.cid = c.cid WHERE v.preferences = 1 AND v.postalcode = '" + PostalCode + "'";
-                DataSet ds = fn.getData(query);
-                dataGridView1.DataSource = ds.Tables[0];
-                query = "SELECT c.cid AS Candidate_ID, c.cname AS Candidate_Name, v.preferences, COUNT(*) AS Total_Votes FROM voting v JOIN candidate c ON v.cid = c.cid WHERE v.preferences = 1 AND v.postalcode = '" + PostalCode + "' GROUP BY c.cid, c.cname, v.preferences HAVING COUNT(*) >= '" + finalQuota + "'";
-                DataSet dataSet = fn.getData(query);
-                DataTable dataTable = dataSet.Tables[0];
+                int totalUsers;
+                int totalSeats;
+                int finalQuota;
 
-                // Check if DataTable contains rows
-                if (dataTable.Rows.Count > 0)
+                // Calculate total users
+                string userCountQuery = "SELECT COUNT(distinct userid) AS TotalUsers FROM voting WHERE postalcode ='" + PostalCode + "'";
+                DataSet userCountDataSet = fn.getData(userCountQuery);
+                DataTable userCountTable = userCountDataSet.Tables[0];
+
+                if (userCountTable.Rows.Count > 0)
                 {
-                    while (totalseats != 0)
+                    totalUsers = Convert.ToInt32(userCountTable.Rows[0]["TotalUsers"]);
+
+                    // Calculate total seats
+                    string seatCountQuery = "SELECT COUNT(DISTINCT seats) AS TotalSeats FROM singletvote WHERE postalcode = '" + PostalCode + "'";
+                    DataSet seatCountDataSet = fn.getData(seatCountQuery);
+                    DataTable seatCountTable = seatCountDataSet.Tables[0];
+
+                    if (seatCountTable.Rows.Count > 0)
                     {
-                        foreach (DataRow row in dataTable.Rows)
+                        totalSeats = Convert.ToInt32(seatCountTable.Rows[0]["TotalSeats"]);
+
+                        // Calculate final quota
+                        finalQuota = (totalUsers / (totalSeats + 1)) + 1;
+
+                        // Loop until all seats are filled
+                        while (totalSeats > 0)
                         {
-                            candidateID = Convert.ToInt32(row["Candidate_ID"]);
-                            candidateName = row["Candidate_Name"].ToString();
-                            totalVotes = Convert.ToInt32(row["Total_Votes"]);
+                            // Query to retrieve candidates who meet or exceed the quota
+                            string candidatesQuery = "SELECT c.cid AS Candidate_ID, c.cname AS Candidate_Name, COUNT(*) AS Total_Votes " +
+                                                     "FROM voting v " +
+                                                     "JOIN candidate c ON v.cid = c.cid " +
+                                                     "WHERE v.preferences = 1 AND v.postalcode = '" + PostalCode + "' " +
+                                                     "GROUP BY c.cid, c.cname " +
+                                                     "HAVING COUNT(*) >= '" + finalQuota + "'";
+                            DataSet candidatesDataSet = fn.getData(candidatesQuery);
+                            DataTable candidatesTable = candidatesDataSet.Tables[0];
 
-                            // Check if the total votes fulfill the quota
-                            if (totalVotes >= finalQuota)
+                            if (candidatesTable.Rows.Count > 0)
                             {
-                                int checkRemain = totalVotes - finalQuota;
-                                // Perform actions for candidates who fulfill the quota
-                                query = "SELECT top '" + checkRemain + "' cid, COUNT(userid) AS all_Preference_count FROM voting WHERE preferences > 1 GROUP BY cid";
-                                DataSet nextPreferenceDataSet = fn.getData(query);
-                                DataTable nextPreferenceDataTable = nextPreferenceDataSet.Tables[0];
+                                DataRow electedCandidateRow = candidatesTable.Rows[0];
+                                int candidateID = Convert.ToInt32(electedCandidateRow["Candidate_ID"]);
+                                string candidateName = electedCandidateRow["Candidate_Name"].ToString();
+                                int totalVotes = Convert.ToInt32(electedCandidateRow["Total_Votes"]);
 
-                                if (nextPreferenceDataTable.Rows.Count > 0)
-                                {
-                                    DataRow nextPreferenceRow = nextPreferenceDataTable.Rows[0];
-                                    int nextPreferenceCandidateID = Convert.ToInt32(nextPreferenceRow["cid"]);
-                                    int nextPreferenceCount = Convert.ToInt32(nextPreferenceRow["all_Preference_count"]);
-
-                                    // add the Reamining and the Next Preference 
-                                    int result = nextPreferenceCount + checkRemain;
-                                   //masla 
-                                        string updateQuery = "UPDATE SingletVote SET totalVotes ='" + result + "' WHERE id = '" + nextPreferenceCandidateID+"'";
-                                    // Execute the update query In Singletvote
-                                    fn.setData(updateQuery, "Total Votes With Distributed stored");
-
-                                    // You can then proceed with further actions, such as adding the votes of this candidate to the remaining surplus votes
-                                }       
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No data found in the DataTable.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("First Fill the Postal Code");
-            }
-        }
-        private void button5_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(PostalCode))
-            {
-                // Loop until all seats are filled
-                while (totalseats > 0)
-                {
-                    // Query to retrieve candidates who meet or exceed the quota
-                    string query = "SELECT c.cid AS Candidate_ID, c.cname AS Candidate_Name, v.preferences, COUNT(*) AS Total_Votes " +
-                                   "FROM voting v " +
-                                   "JOIN candidate c ON v.cid = c.cid " +
-                                   "WHERE v.preferences = 1 AND v.postalcode = '" + PostalCode + "' " +
-                                   "GROUP BY c.cid, c.cname, v.preferences " +
-                                   "HAVING COUNT(*) >= '" + finalQuota + "'";
-                    DataSet dataSet = fn.getData(query);
-                    DataTable dataTable = dataSet.Tables[0];
-
-                    // Check if DataTable contains rows
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        foreach (DataRow row in dataTable.Rows)
-                        {
-                            int candidateID = Convert.ToInt32(row["Candidate_ID"]);
-                            string candidateName = row["Candidate_Name"].ToString();
-                            int totalVotes = Convert.ToInt32(row["Total_Votes"]);
-
-                            // Check if the total votes fulfill the quota
-                            if (totalVotes >= finalQuota)
-                            {
                                 // Calculate surplus votes
                                 int surplusVotes = totalVotes - finalQuota;
 
                                 // Distribute surplus votes
                                 DistributeSurplusVotes(candidateID, surplusVotes);
 
-                                // Update the seat status of the elected candidate in the database
-                                query = "UPDATE candidate SET seat = '" + elected + "' WHERE cid = '" + candidateID + "'";
-                                fn.setData(query, "Set Seat to Candidate");
+                                // Update candidate's seat status
+                                string updateCandidateQuery = "UPDATE candidate SET seat = '" + elected + "' WHERE cid = '" + candidateID + "'";
+                                fn.setData(updateCandidateQuery, "Set Seat to Candidate");
 
-                                // Reduce the total number of seats by 1
-                                totalseats--;
+                                // Decrease total seats count
+                                totalSeats--;
 
-                                // Display a message indicating the elected candidate
+                                // Display elected candidate
                                 MessageBox.Show("The Candidate Elected is '" + candidateName + "'", "Elected Vote", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                // Check if all seats are filled
-                                if (totalseats == 0)
-                                    break; // Exit the loop if all seats are filled
+                                // Remove elected candidate from consideration
+                                EliminateCandidateWithFewestVotes();
+                            }
+                            else
+                            {
+                                // If no candidates meet the quota, eliminate candidates with the fewest votes
+                                EliminateCandidateWithFewestVotes();
                             }
                         }
+                        if (totalSeats == 0)
+                            MessageBox.Show("All Seats Filled");
+
+                        // Fetch the elected candidates and display them in the DataGridView
+                        string electedCandidatesQuery = "SELECT cid, cname FROM candidate WHERE seat ='" + elected + "'";
+                        DataSet electedCandidatesDataSet = fn.getData(electedCandidatesQuery);
+                        dataGridView1.DataSource = electedCandidatesDataSet.Tables[0];
                     }
                     else
                     {
-                        // If no candidates meet the quota, eliminate candidates with the fewest votes
-                        EliminateCandidateWithFewestVotes();
+                        MessageBox.Show("Failed to retrieve total seats count.");
                     }
-                }
-                string query1 = "SELECT cid, cname FROM candidate WHERE seat ='"+elected+"'";
-                DataSet ds = fn.getData(query1);
-                dataGridView1.DataSource = ds.Tables[0];
-            }
-            else
-            {
-                MessageBox.Show("Please enter the Postal Code.");
-            }
-        }
-        private void DistributeSurplusVotes(int candidateID, int surplusVotes)
-        {
-            // Retrieve the list of voters who voted for the elected candidate
-            string query = "SELECT vid, preferences FROM voting WHERE cid = '" + candidateID + "' ORDER BY preferences";
-            DataSet voterData = fn.getData(query);
-            DataTable voterTable = voterData.Tables[0];
-
-            // Distribute surplus votes proportionally among the next preference candidates
-            foreach (DataRow row in voterTable.Rows)
-            {
-                int voterID = Convert.ToInt32(row["vid"]); // Assuming vid represents the voter ID
-                int nextPreference = Convert.ToInt32(row["preferences"]) + 1;
-
-                // Find the candidate the voter ranked next
-                string nextCandidateQuery = "SELECT cid FROM voting WHERE vid = '" + voterID + "' AND preferences = '" + nextPreference + "'";
-                DataSet nextCandidateData = fn.getData(nextCandidateQuery);
-                DataTable nextCandidateTable = nextCandidateData.Tables[0];
-
-                if (nextCandidateTable.Rows.Count > 0)
-                {
-                    int nextCandidateID = Convert.ToInt32(nextCandidateTable.Rows[0]["cid"]);
-
-                    // Update the preferences of the voter
-                    string updateQuery = "UPDATE voting SET preferences = preferences - 1 WHERE vid = '" + voterID + "'";
-                    fn.setData(updateQuery, "Update Voter Preferences");
-
-                    // Distribute surplus vote to the next preference candidate
-                    string distributeQuery = "UPDATE voting SET preferences = preferences + " + surplusVotes + " WHERE vid = '" + voterID + "' AND cid = '" + nextCandidateID + "'";
-                    fn.setData(distributeQuery, "Distribute Surplus Votes");
-                }
-            }
-        }
-
-        private int GetNextPreferenceOrder(int candidateID)
-        {
-            // Retrieve the next preference order for the candidate
-            string query = "SELECT MAX(preferences) + 1 AS nextPreferenceOrder FROM voting WHERE cid = '" + candidateID + "'";
-            DataSet nextPreferenceOrderDataSet = fn.getData(query);
-            int nextPreferenceOrder = Convert.ToInt32(nextPreferenceOrderDataSet.Tables[0].Rows[0]["nextPreferenceOrder"]);
-
-            // Ensure that the next preference order is at least 1
-            return Math.Max(nextPreferenceOrder, 1);
-        }
-        private void EliminateCandidateWithFewestVotes()
-        {
-                // Retrieve all active candidates and their respective vote counts
-                string query = "SELECT v.cid, COUNT(*) AS TotalVotes FROM voting v JOIN candidate c ON v.cid = c.cid WHERE c.seat != '"+"eliminated"+"' GROUP BY v.cid ORDER BY TotalVotes ASC";
-                DataSet candidateVotesDataSet = fn.getData(query);
-                DataTable candidateVotesTable = candidateVotesDataSet.Tables[0];
-
-                // Check if there are active candidates to eliminate
-                if (candidateVotesTable.Rows.Count > 0)
-                {
-                    // Find the candidate with the fewest votes
-                    DataRow candidateWithFewestVotes = candidateVotesTable.Rows[0];
-                    int fewestVotes = Convert.ToInt32(candidateWithFewestVotes["TotalVotes"]);
-                    int candidateID = Convert.ToInt32(candidateWithFewestVotes["cid"]);
-
-                    // Handle tie-break situations (if necessary)
-
-                    // Update the elimination status of the candidate with the fewest votes
-                    string updateStatusQuery = "UPDATE candidate SET seat ='"+ elected +"' WHERE cid = '" + candidateID + "'";
-                    fn.setData(updateStatusQuery, "Mark Candidate as Eliminated");
-
-                    // Update preferences of voters who selected the eliminated candidate as their first choice
-                    string updatePreferencesQuery = "UPDATE voting SET preferences = preferences - 1 WHERE cid = '" + candidateID + "'";
-                    fn.setData(updatePreferencesQuery, "Update Voter Preferences");
-
-                    // Distribute surplus votes of the eliminated candidate among the remaining candidates
-                    DistributeSurplusVotes(candidateID, fewestVotes);
                 }
                 else
                 {
-                    Console.WriteLine("No active candidates to eliminate.");
+                    MessageBox.Show("Failed to retrieve total users count.");
                 }
+            }
+            else
+            {
+                MessageBox.Show("First fill the Postal Code.");
+            }
         }
 
-
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            admin Admin = new admin(); 
+            Admin.Show();
+            
+        }
     }
 }

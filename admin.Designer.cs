@@ -123,16 +123,16 @@
             // 
             // panel2
             // 
-            this.panel2.Location = new System.Drawing.Point(196, 12);
+            this.panel2.Location = new System.Drawing.Point(196, 15);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(915, 639);
+            this.panel2.Size = new System.Drawing.Size(915, 647);
             this.panel2.TabIndex = 1;
             // 
             // admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1120, 663);
+            this.ClientSize = new System.Drawing.Size(1120, 669);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "admin";
