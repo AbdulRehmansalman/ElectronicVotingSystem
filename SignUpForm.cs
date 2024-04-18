@@ -32,7 +32,7 @@ namespace ElectronicVotingSystem
             if (ValidationProxy.ValidateSignUpFields(Name, Username, Password, Contact, PostalCode))
             {
                 //to check that Duplicate Data Not Inserted
-                string query = "select COUNT(*) from Users where name ='" + Name + "' AND postalcode = '" + PostalCode + "' ";
+                string query = "select COUNT(*) from Users where username ='" + Username + "' AND postalcode = '" + PostalCode + "' ";
                 DataSet ds = fn.getData(query);
                 int count = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
                 if (count > 0)

@@ -73,7 +73,7 @@
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(34, 26);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(897, 535);
+            this.panel1.Size = new System.Drawing.Size(829, 535);
             this.panel1.TabIndex = 0;
             // 
             // votingSign
@@ -81,7 +81,7 @@
             this.votingSign.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.votingSign.Location = new System.Drawing.Point(548, 268);
             this.votingSign.Name = "votingSign";
-            this.votingSign.Size = new System.Drawing.Size(148, 28);
+            this.votingSign.Size = new System.Drawing.Size(205, 28);
             this.votingSign.TabIndex = 42;
             // 
             // label7
@@ -99,7 +99,7 @@
             this.postalCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.postalCode.Location = new System.Drawing.Point(548, 416);
             this.postalCode.Name = "postalCode";
-            this.postalCode.Size = new System.Drawing.Size(148, 28);
+            this.postalCode.Size = new System.Drawing.Size(205, 28);
             this.postalCode.TabIndex = 40;
             // 
             // contact
@@ -107,7 +107,7 @@
             this.contact.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contact.Location = new System.Drawing.Point(548, 368);
             this.contact.Name = "contact";
-            this.contact.Size = new System.Drawing.Size(148, 28);
+            this.contact.Size = new System.Drawing.Size(205, 28);
             this.contact.TabIndex = 39;
             // 
             // ctact
@@ -125,7 +125,7 @@
             this.password.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.password.Location = new System.Drawing.Point(548, 217);
             this.password.Name = "password";
-            this.password.Size = new System.Drawing.Size(148, 28);
+            this.password.Size = new System.Drawing.Size(205, 28);
             this.password.TabIndex = 37;
             this.password.UseSystemPasswordChar = true;
             // 
@@ -134,7 +134,7 @@
             this.username.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.username.Location = new System.Drawing.Point(548, 169);
             this.username.Name = "username";
-            this.username.Size = new System.Drawing.Size(148, 28);
+            this.username.Size = new System.Drawing.Size(205, 28);
             this.username.TabIndex = 36;
             // 
             // label5
@@ -163,7 +163,7 @@
             this.partyname.FormattingEnabled = true;
             this.partyname.Location = new System.Drawing.Point(548, 317);
             this.partyname.Name = "partyname";
-            this.partyname.Size = new System.Drawing.Size(148, 30);
+            this.partyname.Size = new System.Drawing.Size(205, 30);
             this.partyname.TabIndex = 33;
             // 
             // label1
@@ -223,7 +223,7 @@
             this.name.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.name.Location = new System.Drawing.Point(548, 114);
             this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(148, 28);
+            this.name.Size = new System.Drawing.Size(205, 28);
             this.name.TabIndex = 19;
             // 
             // label2
@@ -240,7 +240,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(999, 589);
+            this.ClientSize = new System.Drawing.Size(902, 583);
             this.Controls.Add(this.panel1);
             this.Name = "CreateCandidate";
             this.Text = "createCandidate";
